@@ -1,0 +1,31 @@
+<table class="table">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">author</th>
+      <th scope="col">Image</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr *ngFor=" let product of products; index as i">
+      <th scope="row">{{i + 1}}</th>
+      <td colspan="">{{product.name}}</td>
+      <td colspan="">{{product.price}}</td>
+      <td colspan="">{{product.author}}</td>
+      <td colspan=""><img src={{product.image}} alt=""></td>
+      <td colspan="2" class="description" >{{product.description | slice:0:50}}...</td>
+      <td colspan="" class="button">
+        <button class="button-delete" (click)="removeProduct(product._id)">Delete</button>
+        <a [routerLink]="['edit',product._id]"
+            class="m-6 ms-5 font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>
+      
+      </td>
+    </tr>
+  </tbody>
+</table>

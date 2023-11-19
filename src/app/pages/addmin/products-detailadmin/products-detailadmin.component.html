@@ -1,0 +1,33 @@
+<div class="container mt-5">
+
+    <div class="card">
+        <div class="card-body">
+            <div class=" row">
+                <div class=" box_style col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img
+                            [src]="products.images"
+                            width="294px" class="img-responsive"></div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <h1 class="card-title">Tên sản phẩm: {{products.name}}</h1>
+                    <h2 class="card-subtitle mt-1">Tên tác giả: {{products.author}}</h2>
+                    <p class="price mt-1">Giá tiền: {{ formatCurrency(products.price) }}</p>
+                    <div class="text">
+                        <p class="text_price ">Giảm giá: <span class="span_price">{{ formatCurrency(products.sale) }}</span></p>
+                        <p class="text_price1  ">Danh mục: <span class="span_price">{{products.categoryId.name}}</span></p>
+                        <p class="text_price1  ">Tình Trang: <span class="span_price">{{products.status}}</span></p>
+                        <p class="text_price1  ">Tags: <span class="span_price1">{{products.tags}}</span></p>
+                        <p class="text_price1  ">Số Lượng: <span class="span_price1">{{products.quantity}}</span></p>
+                        <p class="text_price1  ">Nhà xuất bản: <span class="span_price1">{{products.company}}</span></p>
+                        <p class="text_price1  ">Số Trang: <span class="span_price1">{{products.numberpages}}</span></p>
+                        <p class="text_price1  ">kích thước: <span class="span_price1">{{products.size}} cm</span></p>
+                        <p class="text_price1  ">Năm xuất bản: <span class="span_price1">{{products.publish}}</span></p>
+                        <p class="text_price1  ">khối lượng: <span class="span_price1">{{products.mass}} gram</span></p>
+                        <p class="text_price1  ">Mô tả: <span class="span_price1">{{products.description}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,31 @@
+<aside>
+    <div *ngIf="noResultsFound" class="aside_noResultsFound">
+      <div class="">
+        <p class="aside_noResultsFound_p">Không có sản phẩm bạn cần tìm <i class="icon-btn fa-solid fa-magnifying-glass"></i> </p>
+      </div>
+    </div>
+  
+    <div *ngIf="!noResultsFound">
+      <div class="card_flex d-flex flex-wrap">
+        <div *ngFor="let item of products | paginate:{itemsPerPage: tabSize, currentPage: page, totalItems: count}">
+          <div class="card" style="width: 18rem;">
+            <a routerLink="/pages-detail/{{item._id}}"><img [src]="item.images" class="card-img-top" alt="..."></a>
+            <div class="card-body">
+              <div>
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.author}}</p>
+              </div>
+              <div class="card_style d-flex ">
+                <p class="card-price">{{ formatCurrency(item.price) }} <del class="del_text"></del></p>
+                <button href="#" class="btn_cart btn btn-danger"(click)="handleAddToCartSearch(item)" ><i class="cart_icon fa-solid fa-cart-shopping"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="products.length > tabSize">
+        <pagination-controls class="pagination" previousLabel="Trước" nextLabel="Tiếp" (pageChange)="onHandlesPage($event)"></pagination-controls>
+      </div>
+    </div>
+  </aside>

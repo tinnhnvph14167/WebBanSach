@@ -1,0 +1,46 @@
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto ">
+      <form
+        action=""
+        [formGroup]="categoryForm" (ngSubmit)="onhandledSubmit()"
+        class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+      >
+        <p class="text-center text-lg font-medium">Thêm Danh Mục</p>
+  
+        <div>
+          <label for="Name" class="block mb-2 m-1 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+  
+          <div class="relative">
+            <input type="name" name="name" id="name" 
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
+             p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              formControlName="name" 
+              placeholder="Name" >
+          </div>
+        <div class="text-red-500" *ngIf="categoryForm.get('name')?.hasError('required') && submitValue">Trường bắt buộc, vui lòng nhập dữ liệu.</div>
+        </div>
+        <div>
+            <label for="description" class="block mb-2 m-1 text-sm font-medium text-gray-900 dark:text-white">description</label>
+    
+            <div class="relative">
+              <input type="description" name="description" id="description" 
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+              rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
+               p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                formControlName="description" 
+                placeholder="description" >
+            </div>
+          <div class="text-red-500" *ngIf="categoryForm.get('description')?.hasError('required') && submitValue">Trường bắt buộc, vui lòng nhập dữ liệu.</div>
+          </div>
+        <button
+          type="submit"
+          class="mt-4 rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+        >
+          Thêm
+        </button>
+      </form>
+    </div>
+  </div>

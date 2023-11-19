@@ -1,0 +1,74 @@
+<div class="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
+    <form>
+        <div class="flex">
+            <div class="relative w-full">
+                <input [(ngModel)]="searchValue" type="search" name="searchValue"
+                    class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                    placeholder="Tìm kiếm" (input)="onSearch()" (keyup)="onSearch()">
+                <button type="submit"
+                    class="absolute top-0 right-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                    <span class="sr-only">Search</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    role
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+                <th scope="col" class="px-6 py-3">
+                </th>
+            </tr>
+        </thead>
+        <tbody class="box-css">
+            <tr *ngFor="let item of user | paginate:{itemsPerPage: tabSize,
+                currentPage: page,
+                totalItems: count}" class=" bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <th scope="row" class="user_item px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{item.name}}
+                </th>
+                <td class="user_item px-6 py-4">
+                    {{item.email}}
+                </td>
+                <td class="user_item px-6 py-4">
+                    {{item.role}}
+                </td>
+                <td class="px-6 py-4">
+                    <button class="font-medium text-red-500 dark:text-blue-500 hover:underline"
+                        (click)="removeId(item._id!)">Edit</button>
+                </td>
+                <td>
+                    <a [routerLink]="['edit',item._id]"
+                        class="m-6 ms-5 font-medium text-blue-600 dark:text-blue-500 hover:underline">Update</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="flex">
+        <div *ngIf="user.length > tabSize"><pagination-controls class="pagination" previousLabel="Truoc"
+                nextLabel="tiep" (pageChange)="onHandlesPage($event)"></pagination-controls></div>
+
+        <div class="tabSizes px-6 py-4">
+            <select (change)="onHandleLimit($event)">
+                <option *ngFor="let size of tabSizes" [ngValue]="size">{{size}}</option>
+            </select>
+        </div>
+    </div>
+
+</div>

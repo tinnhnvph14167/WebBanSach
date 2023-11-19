@@ -1,0 +1,45 @@
+.table{
+    width: 1000px;
+    margin: 0 auto;
+}
+th{
+    width: 200px;
+   
+}
+.button{
+    display: flex;
+    gap: 10px
+    
+}
+.button-delete,
+.button-update{
+    color: white;
+    border-radius: 5px;
+    padding: 4px 10px;
+    margin-bottom: 40px;
+    margin: 10px 23px 31px 23px ;
+
+
+    
+}
+
+
+.button-delete{
+ background-color: red
+}
+.button-delete:hover{
+    background-color: darkred;
+   }
+.button-update{
+    background-color: blue;
+}
+.button-update:hover{
+    background-color: rgba(13, 13, 114, 0.871);
+}
+.description{
+    width: 100px;
+}
+img{
+    height: 100px;
+    width: 100px;
+}

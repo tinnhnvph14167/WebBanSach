@@ -1,0 +1,90 @@
+
+<address>
+    <div class="address">
+        <div class="address_category">
+            <h5 class="address_h5"> Danh mục sản phẩm</h5>
+            <div class="address_category1">
+                <ul class="address_ul">
+                    <li class="address_li" *ngFor="let cate of category">
+                        <a class="address_a"  [href]="'/category-detail/'+cate._id">
+                            <div class="address_li1">
+                                <i class="fa-solid fa-book"></i>
+                                <p>{{cate.name}}</p>
+                            </div>
+                        </a>
+                    </li>  
+                </ul>
+            </div>
+        </div>
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="#">
+                        <img src="https://bookbuy.vn/Res/Images/Album/b30cad0a-275d-4667-85d5-e256a2561efa.jpg?w=880&scale=both&h=320&mode=crop"
+                            class="d-block w-100" alt="...">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#">
+                        <img src="https://bookbuy.vn/Res/Images/Album/1d9122d6-139b-45b6-ba65-f0270faf6796.jpg?w=880&scale=both&h=320&mode=crop"
+                            class="d-block w-100" alt="...">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#">
+                        <img src="https://bookbuy.vn/Res/Images/Album/42c179ce-4813-4ca7-bebe-3fbf89f58a88.jpg?w=880&scale=both&h=320&mode=crop"
+                            class="d-block w-100" alt="...">
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+  
+    <div class="address_images">
+        <a href="#"><img src="https://bookbuy.vn/Res/Images/Banner/dca5088b-75d5-4b41-a66d-d658696580f7.jpg?width=500&format=jpg&scale=both&quality=90" alt=""></a>
+        <a href="#"><img class="image1" src="https://bookbuy.vn/Res/Images/Banner/16e93547-c6c4-4e75-aaa7-205ddde540a2.jpg?width=500&format=jpg&scale=both&quality=90" alt=""></a>
+        <a href="#"><img class="image1" src="https://bookbuy.vn/Res/Images/Banner/1749fd3b-ff26-4bcb-9e1f-66244ac92860.jpg?width=500&format=jpg&scale=both&quality=90" alt=""></a>
+    </div>
+  </address>
+  
+  
+  <aside>
+      <div>
+          <div class="aside_text">
+              <h5>Sản phẩm mới</h5>
+          </div>
+  
+          <div class="card_flex d-flex flex-wrap">
+              <div *ngFor="let item of products.products  | paginate:{itemsPerPage: tabSize,
+                currentPage: page,
+                totalItems: count}">
+                  <div class="card" style="width: 18rem;">
+                      <a [routerLink]="['/pages-detail/',item._id]"><img [src]="item.images" class="card-img-top" alt="..."></a>
+                      <div class="card-body">
+                        <div>
+                            <h5 class="card-title">{{item.name}}</h5>
+                            <p class="card-text">{{item.author}}</p>
+                        </div>
+                        <div class="card_style d-flex ">
+                          <p class="card-price">{{ formatCurrency(item.price) }} 
+                            </p>
+                          <button href="#" class="btn_cart btn btn-danger"(click)="handleAddToCartDetail(item)" ><i class="cart_icon fa-solid fa-cart-shopping"></i></button>
+                      </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+      </div>
+     <div *ngIf="products.products.length > tabSize" >
+          <pagination-controls class="pagination" previousLabel="Truoc" nextLabel="tiep" (pageChange)="onHandlesPage($event)"></pagination-controls>
+          
+     </div>
+  </aside>

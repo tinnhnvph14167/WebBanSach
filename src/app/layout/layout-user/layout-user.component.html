@@ -1,0 +1,298 @@
+<nav>
+    <div class="item">
+        <ul class="nav_ul">
+            <li class="nav_li">
+                <a routerLink="#">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Trợ giúp
+                </a>
+            </li>
+            <li class="nav_li">
+                <a routerLink="#">
+                    <i class="fa-solid fa-newspaper"></i>
+                    Tin tức
+                </a>
+            </li>
+            <li class="nav_li">
+                <a routerLink="#">
+                    <i class="fa-solid fa-tag"></i>
+                    Khuyến mãi
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="items">
+        <ul class="nav_ul">
+            <li class="nav_li">
+                <a routerLink="#">
+                    <i class="fa-solid fa-gift"></i>
+                    Ưu đãi & tiện ích
+                </a>
+            </li>
+            
+            <li class="nav_li">
+                <a routerLink="#">
+                    <i class="fa-solid fa-box"></i>
+                    Kiểm tra đơn hàng
+                </a>
+            </li>
+            <li class="nav_li" *ngIf="userName">
+                <a routerLink="cart" class="cart-hover">
+                    <i class=" fa-solid fa-cart-shopping"></i>
+                    Giỏ hàng
+                </a>
+            </li>
+            <li routerLink="nav_li" *ngIf="!userName" >
+                <a href="login">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    Đăng nhập
+                </a>
+            </li>
+            <li class="nav_li" *ngIf="!userName" class="dangnhap">
+                <a href="sigup">
+                    <i class="fa-regular fa-user"></i>
+                    Đăng kí
+                </a>
+            </li>
+            <div class="avatar flex items-center" (click)="toggleDropdown($event)">
+                <div class="flex items-center ml-3">
+                    <div *ngIf="userName" class="relative">
+                        <button type="button"
+                            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            aria-expanded="false" [attr.data-dropdown-toggle]="'dropdown-user'">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="w-8 h-8 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                        </button>
+                        <div [class.hidden]="!isDropdownOpen"
+                            class="z-50 absolute top-full left-[-69px] mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                            [attr.id]="'dropdown-user'">
+                            <div class="px-4 py-3" role="none">
+                                <div class="d-flex align-items: center ">
+                                    <img class="w-8 h-8 rounded-full"
+                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                                    <p class="text-name text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                         {{userName}}
+                                    </p>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                                    {{email}}
+                                </p>
+                            </div>
+                            <ul class="py-1" role="none" *ngIf="this.role==='admin'">
+                                <li *ngIf="userName">
+                                    <a routerLink="admin/dashboard" class="admin-products w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 
+                                           dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">
+                                        Quản lý
+                                </a>
+                                </li>
+                            </ul>
+                            <ul class="py-1" role="none">
+                                <li *ngIf="userName">
+                                    <button (click)="logout()"
+                                        class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                        role="menuitem">Đăng xuất
+                                    </button>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>
+
+<header>
+    <div class="logo">
+        <a href=""><img src="https://bookbuy.vn/Images/frontend/base/logo-new.png" alt=""></a>
+    </div>
+    <div class="rearch">
+        <div class="rearch_cart">
+            <div class="haa">
+                <button class="category-button " [routerLink]="['/search']" [queryParams]="{ value: searchValue }"
+                    [disabled]="!searchValue">Tìm kiếm</button>
+            </div>
+            <div>
+                <div class="position-relative">
+                    <form class=" position-relative  col-5 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                        <input [(ngModel)]="searchValue" name="searchValue" class="form-control form-control-dark"
+                            placeholder="Bạn muốn tìm kiếm?..." aria-label="Search" (input)="onSearch()">
+                    </form>
+                    <button class="rearch-btn" [routerLink]="['/search']" [queryParams]="{ value: searchValue }"
+                        [disabled]="!searchValue"><i class="icon-btn fa-solid fa-magnifying-glass"></i></button>
+                    <div *ngIf="showResults">
+                        <div class="position-absolute w-100% mr-3 mt-1 bg-gray-300 rounded" *ngIf="isShown "
+                            (clickOutside)="onClickOutside()">
+
+                            <div *ngFor="let item of products">
+                                <a class="d-flex flex-wrap mb-1" (click)="onClick(item)"
+                                    routerLink="/pages-detail/{{item._id}}">
+                                    <img class="reach-imgaes" [src]="item.images" alt="">
+                                    <p class="text-rearch1 text-body">{{item.name}}</p>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="headphones_text">
+            <i class="headphones_icon fa-solid fa-phone-volume"></i>
+            <div class="headphones_flex">
+
+                <p class="headphones">0987 392 904</p>
+                <p class="text-phone">Hỗ trợ khách hàng</p>
+            </div>
+        </div>
+
+        <div class="cart" >
+            <a routerLink="cart" class="cart-hover">
+                <div class="cart_1">
+                    <i class="cart_icon fa-solid fa-cart-shopping"></i>
+                    <p class="cart_text">Giỏ hàng</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</header>
+
+
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<footer>
+    <div class="footer">
+        <div class="footer_below">
+            <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+            <a href="#" class="footer-hover">
+                <p>Sản phẩm & đơn hàng:0987 392 904</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Kỹ thuật và bảo hành: 0989 439 986</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Điện thoại: (028)3820 7153 (giời hành chính)</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Email: info@bookbuy.vn</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Địa chỉ: 296 Lĩnh Nam, Hoàng Mai, Hà Nội</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Sơ đồ đường đi</p>
+            </a>
+        </div>
+        <div class="footer_below1">
+            <h4>TRỢ GIÚP</h4>
+            <a href="#" class="footer-hover">
+                <p>Hướng đãn mua hàng</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Phương thức thanh toán</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Phương thức vận chuyển</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Chính sách đổi-trả</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Chính sách hoàn trả</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Câu hỏi thường gặp(FAQS)</p>
+            </a>
+        </div>
+        <div class="footer_below1">
+            <h4>TÀI KHOẢN CỦA BẠN</h4>
+            <a href="#" class="footer-hover">
+                <p>Cập nhập tài khoản</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Giỏ hàng</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Lịch sử giao dịch</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Sản phẩm yêu thích</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Kiểm tra đơn hàng</p>
+            </a>
+
+        </div>
+        <div class="footer_below1">
+            <h4>BOOKBUY</h4>
+            <a href="#" class="footer-hover">
+                <p>Giới thiệu bookbuy.vn</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>BookBuy trên Facebook</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Liên hệ BookBuy</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Đặt hàng theo yêu cầu</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Tính lũy BBxu</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>Proguide.vn - Kaspersky</p>
+            </a>
+            <a href="#" class="footer-hover">
+                <p>iBookStop.vn</p>
+            </a>
+        </div>
+    </div>
+    <div class="footer_line">
+        <div class="footer_line_1">
+            <p class="footer_line_text">
+                Chập nhận thanh toán:
+            </p>
+            <img class="footer_images"
+                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS2FaiL_96XZQek4kBNCiZNR68_finDczQ80IbYgqjG7FxMtT_k"
+                width="60px" alt="">
+            <img class="footer_images"
+                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS4XlBAP3F32rJpsI3nO3mWuDLStjCCPUJ6BKTbktAj5eznojzZ"
+                width="60px" alt="">
+            <img class="footer_images"
+                src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTncGwRHxhOwpvCBIPah5Pj95yzorf8W_tMBDgARbM3_RDQwm28"
+                width="60px" alt="">
+            <img class="footer_images"
+                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRl4Xk8uAeyg1y3hbVVizcJ8u5-t4M7T7GcTHA-jzv5RaGcvsLG"
+                width="60px" alt="">
+            <img class="footer_images"
+                src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSNORCmUKinnm6S1K6zJkR8qjbp7YQ-yDNLIp_-yA2eFgRHl0ml"
+                width="60px" alt="">
+        </div>
+        <div class="footer_line_2">
+            <p class="footer_line_text">Làm bạn với BookBuy: </p>
+            <a href="#"><img class="footer_images1"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfm03UkoKNbix95qJssttiXAfRr4BzHbsuVqYav9WAVg&s"
+                    width="30px" alt=""></a>
+            <a href="#"><img class="footer_images1"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBHRY9OsXU6nqI9APdLlMjzNsvq0oBBVULta7ThKZf5w&s"
+                    width="30px" alt=""></a>
+            <a href="#"><img class="footer_images1"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3uZHsEdJdbdKLY9c1L-9IoRXLCEyIbaTbxCgMT7Agbw&s"
+                    width="30px" alt=""></a>
+            <a href="#"><img class="footer_images1"
+                    src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-tiktok-inkythuatso-2-mesa-de-trabajo-1-27-09-13-05.jpg"
+                    width="30px" alt=""></a>
+        </div>
+
+    </div>
+    <div class="hr"></div>
+
+</footer>
